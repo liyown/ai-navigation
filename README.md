@@ -88,6 +88,11 @@ cp .env.example .env
 # 编辑 .env 文件，填入必要的环境变量
 ```
 
+> [!IMPORTANT]
+> 当前 Prisma schema 仅支持 PostgreSQL。
+> `DATABASE_URL` 和 `DIRECT_URL` 需要填写 PostgreSQL 连接串，不能直接替换成 MySQL。
+> 如果你使用 MySQL 执行 `npx prisma migrate dev`，会在初始化阶段报错。
+
 5. 初始化数据库:
 
 ```bash
@@ -167,6 +172,13 @@ git push origin feature/your-feature-name
 6. 初始化数据（首次部署后）:
    - 访问 `/admin` 使用设置的密码登录
    - 或运行 `npm run init-data` 初始化种子数据
+
+### 常见部署问题
+
+- 数据库初始化报错:
+  请先确认 `.env` / Vercel 环境变量中的 `DATABASE_URL` 和 `DIRECT_URL` 使用的是 PostgreSQL，而不是 MySQL。
+- 分类列表为空:
+  执行完 `npx prisma migrate dev` 后，还需要再运行一次 `npm run init-data` 导入初始分类和站点数据。
 
 ### 2. 自托管部署
 
